@@ -7,10 +7,12 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <U8x8lib.h>
+#include <U8g2lib.h>
 
-/* Constructor */
+/* Constructor for text mode */
 U8X8_SSD1306_128X32_UNIVISION_HW_I2C u8x8(/* clock=*/ 21, /* data=*/ 20);
-/* u8x8.begin() is required and will sent the setup/init sequence to the display */
+/* Constructor for graphic mode */
+U8G2_SSD1306_128X32_UNIVISION_1_HW_I2C u8g2(/* rotation=*/ U8G2_R0, /* clock=*/ 21, /* data=*/ 20);
 
 uint8_t contrast;
 bool dir;
@@ -18,9 +20,11 @@ bool dir;
 void setup(void)
 {
   Serial.begin(9600); 
-  u8x8.begin();
-  u8x8.setFont(u8x8_font_chroma48medium8_r);
-  u8x8.drawString(0,0," OLED by VK3ERW ");
+  //u8x8.begin(); /* u8x8.begin() is required and will sent the setup/init sequence to the display */
+  u8g2.begin();
+  //u8x8.setFont(u8x8_font_chroma48medium8_r);
+  //u8x8.drawString(0,0," OLED by VK3ERW ");
+  
   //u8x8.drawString(0,1,"1:");
   //u8x8.setFont(u8x8_font_amstrad_cpc_extended_r);
   //u8x8.setFont(u8x8_font_5x7_r);
@@ -33,16 +37,17 @@ void setup(void)
   //u8x8.drawString(0,3,"0123456789012345");
   contrast = 255;
   dir = false;
-  u8x8.drawString(0,2,"Contrast:");
+  //u8x8.drawString(0,2,"Contrast:");
+
 }
 
 void loop(void)
 {
-  u8x8.setContrast(contrast);
-  u8x8.setCursor(10,2);
-  u8x8.print ("   ");
-  u8x8.setCursor(10,2);
-  u8x8.print(contrast);
+  //u8x8.setContrast(contrast);
+  //u8x8.setCursor(10,2);
+  //u8x8.print ("   ");
+  //u8x8.setCursor(10,2);
+  //u8x8.print(contrast);
   //Serial.print("Contrast: ");
   //Serial.println(contrast);
 
@@ -64,6 +69,11 @@ void loop(void)
       delay(2000);
     }
   }
+  u8g2.firstPage();
+  do {
+    u8g2.setFont(u8g2_font_ncenB14_tr);
+    u8g2.drawStr(20,28,"VK3ERW");
+  } while ( u8g2.nextPage() );
 
   //u8x8.setPowerSave(0);
 }
