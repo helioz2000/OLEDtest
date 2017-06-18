@@ -7,8 +7,8 @@
  * OLED -> Arduino Nano
  * GND -> GND
  * VCC -> 5V
- * SCL -> A5
  * SDA -> A4
+ * SCL -> A5
  */
 
 // We can run two modes, text or graphics. 
