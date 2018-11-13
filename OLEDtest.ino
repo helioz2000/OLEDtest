@@ -16,7 +16,7 @@
 #define TEXTMODE
 
 #include <Arduino.h>
-#include <SPI.h>
+//#include <SPI.h>
 
 #ifdef TEXTMODE
 #include <U8x8lib.h>
@@ -57,7 +57,6 @@ void setup(void)
   
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
-
 }
 
 void loop(void)
